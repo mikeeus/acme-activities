@@ -9,14 +9,19 @@ import * as fromContainers from './containers';
 import * as fromComponents from './components';
 
 const routes = [
-  { path: '', component: fromContainers.HomeComponent }
-]
+  { path: '', component: fromContainers.HomeComponent },
+  {
+    path: 'registrations',
+    loadChildren: '@acme-widgets/registry#RegistryModule',
+    data: { title: 'Activity Registrations' }
+  },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     ...fromContainers.containers,
-    ...fromComponents.components,
+    ...fromComponents.components
   ],
   imports: [
     BrowserModule,

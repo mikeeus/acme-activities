@@ -181,6 +181,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "registry": {
+      "root": "libs/registry",
+      "sourceRoot": "libs/registry/src",
+      "projectType": "library",
+      "prefix": "acme-widgets",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/registry/tsconfig.lib.json",
+              "libs/registry/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/registry/jest.config.js",
+            "tsConfig": "libs/registry/tsconfig.spec.json",
+            "setupFile": "libs/registry/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

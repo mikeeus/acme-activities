@@ -19,6 +19,9 @@
     },
     "models": {
       "tags": ["models"]
+    },
+    "registry": {
+      "tags": ["page"]
     }
   }
 }
