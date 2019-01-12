@@ -1,5 +1,4 @@
 import { ActivitiesAction, ActivitiesActionTypes } from './activities.actions';
-import { User } from '@acme-widgets/models';
 
 export const ACTIVITIES_FEATURE_KEY = 'activities';
 
@@ -13,7 +12,6 @@ export const ACTIVITIES_FEATURE_KEY = 'activities';
 
 export interface ActivitiesState {
   list: string[]; // list of Activities; analogous to a sql normalized table
-  user: User;
   selectedId?: string | number; // which Activities record has been selected
   loaded: boolean; // has the Activities list been loaded
   error?: any; // last none error (if any)
@@ -25,7 +23,6 @@ export interface ActivitiesPartialState {
 
 export const initialState: ActivitiesState = {
   list: [],
-  user: null,
   loaded: false
 };
 
@@ -38,15 +35,6 @@ export function activitiesReducer(
       state = {
         ...state,
         list: action.payload,
-        loaded: true
-      };
-      break;
-    }
-
-    case ActivitiesActionTypes.SetUser: {
-      state = {
-        ...state,
-        user: action.payload,
         loaded: true
       };
       break;

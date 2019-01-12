@@ -13,6 +13,7 @@
     "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
+      "@acme-widgets/storeRoot": ["apps/activities/src/app/+state/index.ts"],
       "@acme-widgets/core": ["libs/core/src/index.ts"],
       "@acme-widgets/models": ["libs/models/src/index.ts"],
       "@acme-widgets/registry": ["libs/registry/src/index.ts"],

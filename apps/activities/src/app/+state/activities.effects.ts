@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 
-import { Registration, User } from '@acme-widgets/models';
+import { Registration } from '@acme-widgets/models';
 
 import { ActivitiesPartialState } from './activities.reducer';
 import {
@@ -13,7 +13,7 @@ import {
   GenerateRegistry,
   Register,
   RegistrationError,
-  SetUser
+  Registered
 } from './activities.actions';
 import { Router } from '@angular/router';
 
@@ -33,13 +33,13 @@ export class ActivitiesEffects {
     ActivitiesActionTypes.GenerateRegistry,
     {
       run: (action: GenerateRegistry, state: ActivitiesPartialState) => {
-        localStorage.setItem('registry', JSON.stringify(defaultRegistry));
-        const user = localStorage.getItem('user')
+        const registry = localStorage.getItem('registry')
+        const registration = localStorage.getItem('registration')
 
-        if (user) {
-          return new SetUser(new User(JSON.parse(user)))
-        } else {
-          return null;
+        if (!registry) {
+          localStorage.setItem('registry', JSON.stringify(defaultRegistry));
+        } else if (registration) {
+          this.router.navigate(['registration'])
         }
       }
     }
@@ -69,23 +69,22 @@ export class ActivitiesEffects {
   );
 
   /**
-   * Here we update the registry in localStorage and set the user.
+   * Here we update the registry in localStorage and set registration.
    */
   @Effect() register$ = this.dataPersistence.fetch(
     ActivitiesActionTypes.Register,
     {
       run: (action: Register, state: ActivitiesPartialState) => {
-        const { firstName, lastName, email } = action.payload;
-        const user = new User({firstName, lastName, email})
-        localStorage.setItem('user', JSON.stringify(user))
-
         const registry = JSON.parse(localStorage.getItem('registry'))
+        const registration = new Registration(action.payload);
+
         if (registry.map(r => r.id).indexOf(action.payload.id) === -1) {
-          registry.push(action.payload);
+          registry.push(registration);
           localStorage.setItem('registry', JSON.stringify(registry));
         }
+        localStorage.setItem('registration', JSON.stringify(registration));
 
-        return new SetUser(user);
+        return new Registered(registration);
       },
 
       onError: (action: Register, error) => {
@@ -95,10 +94,10 @@ export class ActivitiesEffects {
     }
   );
 
-  @Effect() setUser$ = this.dataPersistence.fetch(
-    ActivitiesActionTypes.SetUser, 
+  @Effect() registered$ = this.dataPersistence.fetch(
+    ActivitiesActionTypes.Registered, 
     {
-      run: (action: SetUser, state: ActivitiesPartialState) => {
+      run: (action: Registered, state: ActivitiesPartialState) => {
         this.router.navigate(['registrations']);
       }
     }

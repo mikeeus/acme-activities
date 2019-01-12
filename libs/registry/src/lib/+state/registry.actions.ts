@@ -4,7 +4,10 @@ import { Registration } from '@acme-widgets/models';
 export enum RegistryActionTypes {
   LoadRegistry = '[Registry] Load Registry',
   RegistryLoaded = '[Registry] Registry Loaded',
-  RegistryLoadError = '[Registry] Registry Load Error'
+  RegistryLoadError = '[Registry] Registry Load Error',
+
+  DeleteRegistration = '[Registry] Delete Registration',
+  DeleteRegistrationError = '[Registry] Delete Registration Error',
 }
 
 export class LoadRegistry implements Action {
@@ -21,10 +24,28 @@ export class RegistryLoaded implements Action {
   constructor(public payload: Registration[]) {}
 }
 
-export type RegistryAction = LoadRegistry | RegistryLoaded | RegistryLoadError;
+export class DeleteRegistration implements Action {
+  readonly type = RegistryActionTypes.DeleteRegistration;
+  constructor(public payload: number) {}
+}
+
+export class DeleteRegistrationError implements Action {
+  readonly type = RegistryActionTypes.DeleteRegistrationError;
+  constructor(public payload: any) {}
+}
+
+
+export type RegistryAction = LoadRegistry
+  | RegistryLoaded
+  | RegistryLoadError
+  | DeleteRegistration
+  | DeleteRegistrationError;
 
 export const fromRegistryActions = {
   LoadRegistry,
   RegistryLoaded,
-  RegistryLoadError
+  RegistryLoadError,
+
+  DeleteRegistration,
+  DeleteRegistrationError
 };
