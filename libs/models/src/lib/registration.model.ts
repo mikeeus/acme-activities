@@ -6,13 +6,13 @@ export class Registration {
   activity: string;
   comments?: string;
 
-  constructor(id: number, firstName: string, lastName: string,
-    email: string, activity: string, comments?: string) {
-    this.id = id || new Date().getTime();
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.activity = activity;
-    this.comments = comments;
+  constructor(obj: { id?: number, firstName: string, lastName: string,
+    email: string, activity: string, comments?: string}) {
+    this.id = obj.id || new Date().getTime();
+    this.firstName = obj.firstName;
+    this.lastName = obj.lastName;
+    this.email = obj.email;
+    this.activity = obj.activity;
+    this.comments = obj.comments;
   }
 }

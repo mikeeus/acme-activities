@@ -10,7 +10,10 @@ import {
   ActivitiesLoaded,
   ActivitiesLoadError,
   ActivitiesActionTypes,
-  GenerateRegistry
+  GenerateRegistry,
+  Register,
+  Registered,
+  RegistrationError
 } from './activities.actions';
 
 @Injectable()
@@ -19,16 +22,7 @@ export class ActivitiesEffects {
     ActivitiesActionTypes.GenerateRegistry,
     {
       run: (action: GenerateRegistry, state: ActivitiesPartialState) => {
-        const registry = [
-          new Registration(1, 'Richard', 'Hendricks', 'richard@piedpiper.com', 'Initial Coin Offering', 'Crypto is the future!'),
-          new Registration(2, 'Dinesh', 'Chugtai', 'dinesh@piedpiper.com', 'Company Breakfast', 'Sounds delicious!'),
-          new Registration(3, 'Gavin', 'Belson', 'gavin@hooli.com', "Gavin's Comeback Party", "I'm back!"),
-          new Registration(4, 'Jared', 'Dunn', 'jared@piedpiper.com', 'Initial Coin Offering', 'Richard will be here, right?'),
-          new Registration(5, 'Monica', 'Hall', 'monica@piedpiper.com', 'Initial Coin Offering', "I can't believe I got roped into this!"),
-          new Registration(6, 'Laurie', 'Bream', 'laurie@bream.com', 'Hostile Takeover', "Yes..."),
-        ]
-
-        localStorage.setItem('registry', JSON.stringify(registry));
+        localStorage.setItem('registry', JSON.stringify(defaultRegistry));
         return null;
       }
     }
@@ -38,7 +32,6 @@ export class ActivitiesEffects {
     ActivitiesActionTypes.LoadActivities,
     {
       run: (action: LoadActivities, state: ActivitiesPartialState) => {
-        // Your custom REST 'load' logic goes here. For now just return an empty list...
         return new ActivitiesLoaded([
           'Initial Coin Offering',
           'Fundraising',
@@ -58,8 +51,77 @@ export class ActivitiesEffects {
     }
   );
 
+  @Effect() register$ = this.dataPersistence.fetch(
+    ActivitiesActionTypes.Register,
+    {
+      run: (action: Register, state: ActivitiesPartialState) => {
+        const { firstName, lastName, email } = action.payload;
+
+        localStorage.setItem('user', JSON.stringify({firstName, lastName, email}))
+
+        return new Registered(action.payload);
+      },
+
+      onError: (action: Register, error) => {
+        console.error('Error', error);
+        return new RegistrationError(error);
+      }
+    }
+  );
+
   constructor(
     private actions$: Actions,
     private dataPersistence: DataPersistence<ActivitiesPartialState>
   ) {}
 }
+
+const defaultRegistry = [
+  new Registration({
+    id: 1,
+    firstName: 'Richard',
+    lastName: 'Hendricks',
+    email: 'richard@piedpiper.com',
+    activity: 'Initial Coin Offering',
+    comments: 'Crypto is the future!'
+  }),
+  new Registration({
+    id: 2,
+    firstName: 'Dinesh',
+    lastName: 'Chugtai',
+    email: 'dinesh@piedpiper.com',
+    activity: 'Company Breakfast',
+    comments: 'Sounds delicious!'
+  }),
+  new Registration({
+    id: 3,
+    firstName: 'Gavin',
+    lastName: 'Belson',
+    email: 'gavin@hooli.com',
+    activity: "Gavin's Comeback Party",
+    comments: "I'm back!"
+  }),
+  new Registration({
+    id: 4,
+    firstName: 'Jared',
+    lastName: 'Dunn',
+    email: 'jared@piedpiper.com',
+    activity: 'Initial Coin Offering',
+    comments: 'Richard will be here, right?'
+  }),
+  new Registration({
+    id: 5,
+    firstName: 'Monica',
+    lastName: 'Hall',
+    email: 'monica@piedpiper.com',
+    activity: 'Initial Coin Offering',
+    comments: "I can't believe I got roped into this!"
+  }),
+  new Registration({
+    id: 6,
+    firstName: 'Laurie',
+    lastName: 'Bream',
+    email: 'laurie@bream.com',
+    activity: 'Hostile Takeover',
+    comments: "Yes..."
+  }),
+]

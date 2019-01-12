@@ -4,7 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'acme-widgets-registration-form',
   template: `
-  <form [formGroup]="form" (submit)="submitForm()">
+  <form [formGroup]="form" (submit)="submitForm($event)">
     <h2>Sign Up For ACME Activities!</h2>
   
     <acme-widgets-form-control label="First Name" [control]="firstName">
@@ -62,7 +62,8 @@ export class RegistrationFormComponent implements OnInit {
   get activity() { return this.form.get('activity'); }
   get comments() { return this.form.get('comments'); }
 
-  submitForm() {
+  submitForm(e: Event) {
     this.submit.emit(this.form.value())
+    e.preventDefault();
   }
 }
