@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'acme-widgets-home',
   template: `
-    <h1>ACME Events</h1>
+    <acme-widgets-registration-form></acme-widgets-registration-form>
   `,
   styleUrls: ['./home.component.css']
 })

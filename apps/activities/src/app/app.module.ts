@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import * as fromContainers from './containers';
 import * as fromComponents from './components';
 
+import { RegistrationsModule } from '@acme-widgets/registrations';
+
 const routes = [
   { path: '', component: fromContainers.HomeComponent },
   {
@@ -26,7 +28,8 @@ const routes = [
   imports: [
     BrowserModule,
     NxModule.forRoot(),
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled' })
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    RegistrationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

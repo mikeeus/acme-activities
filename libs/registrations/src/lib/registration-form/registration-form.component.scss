@@ -1,0 +1,13 @@
+form {
+  max-width: 30rem;
+  padding: 2rem;
+
+  h2 {
+    text-align: center;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: end;
+  }
+}
