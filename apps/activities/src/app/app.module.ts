@@ -8,9 +8,13 @@ import { AppComponent } from './app.component';
 import * as fromContainers from './containers';
 import * as fromComponents from './components';
 import * as fromGuards from './guards';
+import * as fromServices from './services';
 
 // ACME MODULES
 import { RegistrationsModule } from '@acme-widgets/registrations';
+
+// MOCK SERVER
+import { fakeBackendProvider } from './interceptors';
 
 // NGRX STORE
 import { StoreModule } from '@ngrx/store';
@@ -60,7 +64,9 @@ const routes = [
     StoreRouterConnectingModule
   ],
   providers: [
-    ...fromGuards.guards
+    ...fromGuards.guards,
+    ...fromServices.services,
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
