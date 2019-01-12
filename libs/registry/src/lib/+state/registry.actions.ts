@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Entity } from './registry.reducer';
+import { Registration } from '@acme-widgets/models';
 
 export enum RegistryActionTypes {
   LoadRegistry = '[Registry] Load Registry',
@@ -18,7 +18,7 @@ export class RegistryLoadError implements Action {
 
 export class RegistryLoaded implements Action {
   readonly type = RegistryActionTypes.RegistryLoaded;
-  constructor(public payload: Entity[]) {}
+  constructor(public payload: Registration[]) {}
 }
 
 export type RegistryAction = LoadRegistry | RegistryLoaded | RegistryLoadError;

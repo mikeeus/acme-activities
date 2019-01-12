@@ -16,8 +16,8 @@ export class RegistryEffects {
     RegistryActionTypes.LoadRegistry,
     {
       run: (action: LoadRegistry, state: RegistryPartialState) => {
-        // Your custom REST 'load' logic goes here. For now just return an empty list...
-        return new RegistryLoaded([]);
+        const registrations = JSON.parse(localStorage.getItem('registry'))
+        return new RegistryLoaded(registrations);
       },
 
       onError: (action: LoadRegistry, error) => {

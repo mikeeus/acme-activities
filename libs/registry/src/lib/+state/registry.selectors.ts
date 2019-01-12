@@ -15,7 +15,7 @@ const getError = createSelector(
   (state: RegistryState) => state.error
 );
 
-const getAllRegistry = createSelector(
+const getAllRegistrations = createSelector(
   getRegistryState,
   getLoaded,
   (state: RegistryState, isLoaded) => {
@@ -27,7 +27,7 @@ const getSelectedId = createSelector(
   (state: RegistryState) => state.selectedId
 );
 const getSelectedRegistry = createSelector(
-  getAllRegistry,
+  getAllRegistrations,
   getSelectedId,
   (registry, id) => {
     const result = registry.find(it => it['id'] === id);
@@ -38,6 +38,6 @@ const getSelectedRegistry = createSelector(
 export const registryQuery = {
   getLoaded,
   getError,
-  getAllRegistry,
+  getAllRegistrations,
   getSelectedRegistry
 };

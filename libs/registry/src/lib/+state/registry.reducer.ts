@@ -1,4 +1,5 @@
 import { RegistryAction, RegistryActionTypes } from './registry.actions';
+import { Registration } from '@acme-widgets/models';
 
 export const REGISTRY_FEATURE_KEY = 'registry';
 
@@ -11,10 +12,9 @@ export const REGISTRY_FEATURE_KEY = 'registry';
  */
 
 /* tslint:disable:no-empty-interface */
-export interface Entity {}
 
 export interface RegistryState {
-  list: Entity[]; // list of Registry; analogous to a sql normalized table
+  list: Registration[]; // list of Registry; analogous to a sql normalized table
   selectedId?: string | number; // which Registry record has been selected
   loaded: boolean; // has the Registry list been loaded
   error?: any; // last none error (if any)
