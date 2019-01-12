@@ -4,7 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'acme-widgets-registration-form',
   template: `
-  <form [formGroup]="form" (submit)="submitForm($event)">
+  <form [formGroup]="form">
     <h2>Sign Up For ACME Activities!</h2>
   
     <acme-widgets-form-control label="First Name" [control]="firstName">
@@ -32,7 +32,11 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
     </acme-widgets-form-control>
   
     <div class="controls">
-      <button type="submit" [disabled]="form.invalid">Submit</button>
+      <button
+        [disabled]="form.invalid"
+        (click)="submitForm(); $event.preventDefault()">
+        Submit
+      </button>
     </div>
   </form>
   `,
@@ -48,11 +52,11 @@ export class RegistrationFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      activity: ['', [Validators.required, Validators.minLength(2)]],
-      comments: [''],
+      firstName: ['Mikias', [Validators.required, Validators.minLength(2)]],
+      lastName: ['Abera', [Validators.required, Validators.minLength(2)]],
+      email: ['mikias@email.com', [Validators.required, Validators.email]],
+      activity: ['Initial Coin Offering', [Validators.required, Validators.minLength(2)]],
+      comments: ['Test'],
     })
   }
 
@@ -62,8 +66,7 @@ export class RegistrationFormComponent implements OnInit {
   get activity() { return this.form.get('activity'); }
   get comments() { return this.form.get('comments'); }
 
-  submitForm(e: Event) {
-    this.submit.emit(this.form.value())
-    e.preventDefault();
+  submitForm() {
+    this.submit.emit(this.form.value)
   }
 }
