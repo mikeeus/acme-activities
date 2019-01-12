@@ -21,7 +21,7 @@ const routes = [
   imports: [
     BrowserModule,
     NxModule.forRoot(),
-    RouterModule.forRoot([], { initialNavigation: 'enabled' })
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' })
   ],
   providers: [],
   bootstrap: [AppComponent]
