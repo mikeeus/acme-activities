@@ -5,8 +5,19 @@ import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 
+import * as fromContainers from './containers';
+import * as fromComponents from './components';
+
+const routes = [
+  { path: '', component: fromContainers.HomeComponent }
+]
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    ...fromContainers.containers,
+    ...fromComponents.components,
+  ],
   imports: [
     BrowserModule,
     NxModule.forRoot(),
