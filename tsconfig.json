@@ -15,7 +15,8 @@
     "paths": {
       "@acme-widgets/core": ["libs/core/src/index.ts"],
       "@acme-widgets/models": ["libs/models/src/index.ts"],
-      "@acme-widgets/registry": ["libs/registry/src/index.ts"]
+      "@acme-widgets/registry": ["libs/registry/src/index.ts"],
+      "@acme-widgets/registrations": ["libs/registrations/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -22,6 +22,9 @@
     },
     "registry": {
       "tags": ["page"]
+    },
+    "registrations": {
+      "tags": ["ui"]
     }
   }
 }
