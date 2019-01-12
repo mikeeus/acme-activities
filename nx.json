@@ -13,6 +13,9 @@
     },
     "activities-e2e": {
       "tags": []
+    },
+    "core": {
+      "tags": ["ui"]
     }
   }
 }
