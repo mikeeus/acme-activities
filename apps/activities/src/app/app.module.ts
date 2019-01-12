@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 
-// ACTIVITIES COMPONENTS
+// ACTIVITIES COMPONENTS, SERVICES and GUARDS
 import { AppComponent } from './app.component';
 import * as fromContainers from './containers';
 import * as fromComponents from './components';
+import * as fromGuards from './guards';
 
 // ACME MODULES
 import { RegistrationsModule } from '@acme-widgets/registrations';
@@ -30,8 +31,10 @@ const routes = [
   {
     path: 'registrations',
     loadChildren: '@acme-widgets/registry#RegistryModule',
-    data: { title: 'Activity Registrations' }
-  }
+    data: { title: 'Activity Registrations' },
+    canActivate: [fromGuards.RegisteredGuard]
+  },
+  { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 
 @NgModule({
@@ -56,7 +59,9 @@ const routes = [
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule
   ],
-  providers: [],
+  providers: [
+    ...fromGuards.guards
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
