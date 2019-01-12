@@ -43,12 +43,10 @@ export function activitiesReducer(
       break;
     }
 
-    case ActivitiesActionTypes.Registered: {
-      const { firstName, lastName, email } = action.payload;
-
+    case ActivitiesActionTypes.SetUser: {
       state = {
         ...state,
-        user: new User({ firstName, lastName, email }),
+        user: action.payload,
         loaded: true
       };
       break;
