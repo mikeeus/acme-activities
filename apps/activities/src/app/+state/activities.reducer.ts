@@ -10,11 +10,8 @@ export const ACTIVITIES_FEATURE_KEY = 'activities';
  *  Note: replace if already defined in another module
  */
 
-/* tslint:disable:no-empty-interface */
-export interface Entity {}
-
 export interface ActivitiesState {
-  list: Entity[]; // list of Activities; analogous to a sql normalized table
+  list: string[]; // list of Activities; analogous to a sql normalized table
   selectedId?: string | number; // which Activities record has been selected
   loaded: boolean; // has the Activities list been loaded
   error?: any; // last none error (if any)

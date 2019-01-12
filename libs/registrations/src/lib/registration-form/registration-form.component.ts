@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -40,13 +40,9 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class RegistrationFormComponent implements OnInit {
   @Output() submit = new EventEmitter<any>();
+  @Input() activities: string[];
 
   form: FormGroup;
-  activities = [
-    'Christmas Party',
-    'Company Retreat',
-    'Traning Session'
-  ]
 
   constructor(private fb: FormBuilder) { }
 

@@ -17,7 +17,13 @@ export class ActivitiesEffects {
     {
       run: (action: LoadActivities, state: ActivitiesPartialState) => {
         // Your custom REST 'load' logic goes here. For now just return an empty list...
-        return new ActivitiesLoaded([]);
+        return new ActivitiesLoaded([
+          'Initial Coin Offering',
+          'Fundraising',
+          'Hostile Takeover',
+          "Gavin's Comeback Party",
+          'Company Breakfast'
+        ]);
       },
 
       onError: (action: LoadActivities, error) => {
