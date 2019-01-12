@@ -15,6 +15,7 @@ import {
   Registered,
   RegistrationError
 } from './activities.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ActivitiesEffects {
@@ -69,8 +70,18 @@ export class ActivitiesEffects {
     }
   );
 
+  @Effect() registered$ = this.dataPersistence.fetch(
+    ActivitiesActionTypes.Registered,
+    {
+      run: (action: Registered, state: ActivitiesPartialState) => {
+        this.router.navigate(['registrations']);
+      }
+    }
+  );
+
   constructor(
     private actions$: Actions,
+    private router: Router,
     private dataPersistence: DataPersistence<ActivitiesPartialState>
   ) {}
 }
