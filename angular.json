@@ -2,7 +2,126 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "activities": {
+      "root": "apps/activities/",
+      "sourceRoot": "apps/activities/src",
+      "projectType": "application",
+      "prefix": "acme-widgets",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "inlineTemplate": true,
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/activities",
+            "index": "apps/activities/src/index.html",
+            "main": "apps/activities/src/main.ts",
+            "polyfills": "apps/activities/src/polyfills.ts",
+            "tsConfig": "apps/activities/tsconfig.app.json",
+            "assets": [
+              "apps/activities/src/favicon.ico",
+              "apps/activities/src/assets"
+            ],
+            "styles": ["apps/activities/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/activities/src/environments/environment.ts",
+                  "with": "apps/activities/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "activities:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "activities:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "activities:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/activities/tsconfig.app.json",
+              "apps/activities/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/activities/jest.config.js",
+            "tsConfig": "apps/activities/tsconfig.spec.json",
+            "setupFile": "apps/activities/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "activities-e2e": {
+      "root": "apps/activities-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/activities-e2e/cypress.json",
+            "tsConfig": "apps/activities-e2e/tsconfig.e2e.json",
+            "devServerTarget": "activities:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "activities:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/activities-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
@@ -18,5 +137,6 @@
     "@nrwl/schematics:library": {
       "style": "scss"
     }
-  }
+  },
+  "defaultProject": "activities"
 }
