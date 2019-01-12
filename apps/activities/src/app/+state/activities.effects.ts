@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 
-import { Registration } from '@acme-widgets/models';
+import { Registration, User } from '@acme-widgets/models';
 
 import { ActivitiesPartialState } from './activities.reducer';
 import {
@@ -13,18 +13,36 @@ import {
   GenerateRegistry,
   Register,
   Registered,
-  RegistrationError
+  RegistrationError,
+  SetUser
 } from './activities.actions';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class ActivitiesEffects {
+  /**
+   * NOTE
+   * On app start we generate the registry and add it to localStorage to 
+   * simulate populating the backend db. We then check if the user has already 
+   * registered.
+   * 
+   * In a real app we would check the JWT token in localStorage for 
+   * validity by making a request to the backend. Here we just assume that a 
+   * user in the localStorage means a user has signed up.
+   */
   @Effect() generateRegistry = this.dataPersistence.fetch(
     ActivitiesActionTypes.GenerateRegistry,
     {
       run: (action: GenerateRegistry, state: ActivitiesPartialState) => {
         localStorage.setItem('registry', JSON.stringify(defaultRegistry));
-        return null;
+        const user = localStorage.getItem('user')
+
+        if (user) {
+          this.router.navigate(['registrations']);
+          return new SetUser(new User(JSON.parse(user)))
+        } else {
+          return null;
+        }
       }
     }
   )

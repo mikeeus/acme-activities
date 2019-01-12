@@ -35,9 +35,15 @@ const getSelectedActivities = createSelector(
   }
 );
 
+const getUser = createSelector(
+  getActivitiesState,
+  (state: ActivitiesState) => state.user
+)
+
 export const activitiesQuery = {
   getLoaded,
   getError,
   getAllActivities,
-  getSelectedActivities
+  getSelectedActivities,
+  getUser
 };
