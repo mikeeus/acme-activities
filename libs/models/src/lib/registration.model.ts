@@ -17,6 +17,23 @@ export class Registration {
   }
 
   get activityClass() {
-    return this.activity.toLowerCase().replace(/'/g, '').replace(' ', '-');
+    switch(this.activity) {
+      case 'Initial Coin Offering':
+         return '#a3b5fd';
+      case 'Fundraising':
+         return '#c3c5f8';
+      case 'Hostile Takeover':
+         return '#b3eef6';
+      case "Gavin's Comeback Party":
+         return '#ffc3df';
+      case 'Company Breakfast':
+         return '#e49aab';
+      case 'Company Retreat':
+         return '#fea78c';
+      case 'Quarterly All-Hands Meeting':
+         return '#cd69a7';
+      case "Jim's Birthday":
+         return '#cd69a7';
+    }
   }
 }

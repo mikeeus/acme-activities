@@ -16,31 +16,52 @@
 
     li {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 1rem;
-      line-height: 2rem;
-      position: relative;
+      flex-direction: column;
 
-      @include xs {
-        flex-direction: column;
+      .info {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem;
+        line-height: 3rem;
+        position: relative;
+  
+        @include xs {
+          flex-direction: column;
+        }
+  
+        small {
+          margin-left: 1rem;
+        }
+  
+        .activity {
+          padding: 0 0.5rem;
+          border-radius: 0.2rem;
+          border: 0;
+          color: white;
+          font-weight: bold;
+          margin-left: auto;
+        }
+  
+        button.delete {
+          position: absolute;
+          right: -1rem;
+          top: 0.5rem;
+          background: $color-red;
+          color: white;
+          border: 0;
+          padding: 0.3rem 0.4rem;
+          border-radius: 0.2rem;
+          cursor: pointer;
+  
+          &:hover {
+            background: darken($color-red, 5%);
+          }
+        }
       }
 
-      button.delete {
-        position: absolute;
-        right: 1rem;
-        top: 0.5rem;
-        background: $color-red;
-        color: white;
-        border: 0;
-        padding: 0.1rem 0.6rem;
-        border-radius: 0.2rem;
-        cursor: pointer;
-
-        &:hover {
-          background: darken($color-red, 5%);
-        }
+      small.comments{
+        padding: 0 0.5rem;
       }
     }
   }
