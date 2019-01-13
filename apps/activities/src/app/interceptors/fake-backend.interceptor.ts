@@ -27,7 +27,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           const registration = new Registration(request.body)
 
           if (registry.map(r => r.id).indexOf(registration.id) === -1) {
-            registry.push(registration)
+            registry.unshift(registration)
             localStorage.setItem('registry', JSON.stringify(registry))
           }
 
@@ -64,7 +64,7 @@ export let fakeBackendProvider = {
 
 const defaultRegistry = [
   new Registration({
-    id: 1,
+    id: 6,
     firstName: 'Richard',
     lastName: 'Hendricks',
     email: 'richard@piedpiper.com',
@@ -72,7 +72,7 @@ const defaultRegistry = [
     comments: 'Crypto is the future!'
   }),
   new Registration({
-    id: 2,
+    id: 5,
     firstName: 'Dinesh',
     lastName: 'Chugtai',
     email: 'dinesh@piedpiper.com',
@@ -80,7 +80,7 @@ const defaultRegistry = [
     comments: 'Sounds delicious!'
   }),
   new Registration({
-    id: 3,
+    id: 4,
     firstName: 'Gavin',
     lastName: 'Belson',
     email: 'gavin@hooli.com',
@@ -88,7 +88,7 @@ const defaultRegistry = [
     comments: "I'm back!"
   }),
   new Registration({
-    id: 4,
+    id: 3,
     firstName: 'Jared',
     lastName: 'Dunn',
     email: 'jared@piedpiper.com',
@@ -96,7 +96,7 @@ const defaultRegistry = [
     comments: 'Richard will be here, right?'
   }),
   new Registration({
-    id: 5,
+    id: 2,
     firstName: 'Monica',
     lastName: 'Hall',
     email: 'monica@piedpiper.com',
@@ -104,7 +104,7 @@ const defaultRegistry = [
     comments: "I can't believe I got roped into this!"
   }),
   new Registration({
-    id: 6,
+    id: 1,
     firstName: 'Laurie',
     lastName: 'Bream',
     email: 'laurie@bream.com',
