@@ -10,14 +10,14 @@ import { filter, map } from 'rxjs/operators';
   selector: 'acme-widgets-registry',
   template: `
     <div class="container">
+      <h1>Registrations</h1>
+
       <div class="filter" *ngIf="filteredActivity">
         <strong>Filter </strong>
-        <button
-          class="activity"
-          [ngStyle]="{backgroundColor: activityClass(filteredActivity)}"
+        <acme-widgets-activity
+          [activity]="filteredActivity"
           (click)="filter(null)">
-          {{filteredActivity}}
-        </button>
+        </acme-widgets-activity>
       </div>
 
       <ul>
@@ -61,9 +61,5 @@ export class RegistryComponent implements OnInit {
     } else {
       this.filtered = this.registrations;
     }
-  }
-
-  activityClass(activity) {
-    return Registration.activityClass(activity);
   }
 }

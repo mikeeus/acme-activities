@@ -11,12 +11,11 @@ import { Registration } from '@acme-widgets/models';
         </strong>
         <small title="{{registration.email}}">{{registration.email}}</small>
     
-        <div
+        <acme-widgets-activity
           class="activity"
-          [ngStyle]="{backgroundColor: registration.activityClass}"
+          [activity]="registration.activity"
           (click)="filter.emit(registration.activity)">
-          {{registration.activity}}
-        </div>
+        </acme-widgets-activity>
     
         <button
           class="delete"

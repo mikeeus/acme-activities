@@ -9,7 +9,7 @@ import { map, merge, combineLatest, switchMap } from 'rxjs/operators';
   selector: 'acme-widgets-registration-form',
   template: `
   <form [formGroup]="form" (keydown.enter)="$event.preventDefault(); nextStep()">
-    <h2>Sign Up For ACME Activities!</h2>
+    <h1>Sign Up For ACME Activities!</h1>
   
     <div class="step" *ngIf="(step | async)?.name === 'name'">
       <acme-widgets-form-control
