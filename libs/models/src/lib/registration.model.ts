@@ -16,8 +16,8 @@ export class Registration {
     this.comments = obj.comments;
   }
 
-  get activityClass() {
-    switch(this.activity) {
+  static activityClass(activity) {
+    switch(activity) {
       case 'Initial Coin Offering':
          return '#a3b5fd';
       case 'Fundraising':
@@ -35,5 +35,9 @@ export class Registration {
       case "Jim's Birthday":
          return '#cd69a7';
     }
+  }
+
+  get activityClass() {
+    return Registration.activityClass(this.activity);
   }
 }

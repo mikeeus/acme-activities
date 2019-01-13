@@ -6,6 +6,25 @@
   width: 100%;
   padding: 3rem;
   box-sizing: border-box;
+  flex-direction: column;
+
+  .filter {
+    strong {
+      margin-right: 2rem;
+      padding: 0.5rem;
+    }
+  }
+  .activity {
+    padding: 0 1rem;
+    border-radius: 0.2rem;
+    border: 0;
+    color: white;
+    font-weight: bold;
+    margin-left: auto;
+    line-height: 3rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
 
   ul {
     width: 100%;
@@ -32,15 +51,6 @@
   
         small {
           margin-left: 1rem;
-        }
-  
-        .activity {
-          padding: 0 0.5rem;
-          border-radius: 0.2rem;
-          border: 0;
-          color: white;
-          font-weight: bold;
-          margin-left: auto;
         }
   
         button.delete {
