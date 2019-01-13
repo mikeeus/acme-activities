@@ -21,32 +21,13 @@ import { filter, map } from 'rxjs/operators';
       </div>
 
       <ul>
-        <li *ngFor="let registration of filtered | async">
-          <div class="info">
-            <strong>
-              {{registration.firstName}} {{registration.lastName}}
-            </strong>
-            <small title="{{registration.email}}">{{registration.email}}</small>
-
-            <div
-              class="activity"
-              [ngStyle]="{backgroundColor: registration.activityClass}"
-              (click)="filter(registration.activity)">
-              {{registration.activity}}
-            </div>
-
-            <button
-              class="delete"
-              *ngIf="userRegistration?.email === registration.email"
-              (click)="deleteRegistration(registration.id)">
-              ✖
-            </button>
-          </div>
-
-          <small class="comments">
-            {{registration.comments}}
-          </small>
-        </li>
+        <acme-widgets-registration-item
+          *ngFor="let registration of filtered | async"
+          [userEmail]="userRegistration?.email"
+          [registration]="registration"
+          (filter)="filter($event)"
+          (delete)="deleteRegistration($event)">
+        </acme-widgets-registration-item>
       </ul>
     </div>
   `,

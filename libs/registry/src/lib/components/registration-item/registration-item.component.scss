@@ -1,0 +1,76 @@
+@import 'variables.scss';
+
+li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+
+  @include xs {
+    .info {
+      flex-direction: column;
+
+      .activity {
+        margin: 1rem;
+      }
+    }
+
+    .comments {
+      text-align: center;
+    }
+  }
+  
+  @include gt-xs {
+    .info {
+      line-height: 3rem;
+
+      small {
+        margin-left: 1rem;
+      }
+      
+      .activity {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    position: relative;
+    box-sizing: border-box;
+
+    strong, .activity {
+      white-space: nowrap;
+    }
+
+    small {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    button.delete {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: white;
+      background: $color-red;
+      border: 0;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($color-red, 5%);
+      }
+    }
+  }
+
+  small.comments{
+    padding: 0 0.5rem;
+    font-style: italic;
+  }
+}
