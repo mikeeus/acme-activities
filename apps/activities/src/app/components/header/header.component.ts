@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'acme-widgets-header',
   template: `
-    <p>
-      header works!
-    </p>
+    <header>
+      <div class="brand">ACME <small>Widgets</small></div>
+    </header>
   `,
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
