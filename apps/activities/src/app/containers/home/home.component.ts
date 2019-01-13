@@ -7,12 +7,14 @@ import { Registration, Activity } from '@acme-widgets/models';
 @Component({
   selector: 'acme-widgets-home',
   template: `
-    <acme-widgets-registration-form
-      [activities]="activities | async"
-      (submit)="register($event)">
-    </acme-widgets-registration-form>
+    <div class="container">
+      <acme-widgets-registration-form
+        [activities]="activities | async"
+        (submit)="register($event)">
+      </acme-widgets-registration-form>
+    </div>
   `,
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   activities: Observable<Activity[]>;

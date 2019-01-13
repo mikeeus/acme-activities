@@ -168,6 +168,12 @@ $grey2: #eeeeee;
 $grey1: #f5f5f5;
 $grey0: #fafafa;
 
+// Box Shadow
+@mixin box-shadow {
+  -webkit-box-shadow: 0px 0px 30px -16px rgb(123, 123, 123);
+  -moz-box-shadow: 0px 0px 30px -16px rgb(123, 123, 123);
+  box-shadow: 0px 0px 30px -16px rgb(123, 123, 123);
+}
 
 // Layouts
 // Buttons

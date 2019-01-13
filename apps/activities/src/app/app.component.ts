@@ -7,7 +7,9 @@ import * as fromRoot from './+state';
   template: `
     <div class="container">
       <acme-widgets-header></acme-widgets-header>
-      <router-outlet></router-outlet>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
       <acme-widgets-footer></acme-widgets-footer>
     </div>
   `,
