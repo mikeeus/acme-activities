@@ -15,4 +15,8 @@ export class Registration {
     this.activity = obj.activity;
     this.comments = obj.comments;
   }
+
+  get activityClass() {
+    return this.activity.toLowerCase().replace(/'/g, '').replace(' ', '-');
+  }
 }

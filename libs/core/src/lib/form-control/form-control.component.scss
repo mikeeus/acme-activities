@@ -34,7 +34,7 @@
 
   label.error {
     ::ng-deep input, ::ng-deep textarea, ::ng-deep select {
-      border-color: red;
+      border-color: $color-red;
     }
   }
 
@@ -42,7 +42,7 @@
     min-height: 2rem;
 
     small {
-      color: red;
+      color: $color-red;
       height: 1rem;
     }
   }

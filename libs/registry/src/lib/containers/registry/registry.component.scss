@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 .container {
   display: flex;
   justify-content: center;
@@ -6,14 +8,40 @@
   box-sizing: border-box;
 
   ul {
+    width: 100%;
     max-width: 50rem;
     list-style: none;
     margin: 0;
     padding: 0;
 
     li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
       padding: 1rem;
       line-height: 2rem;
+      position: relative;
+
+      @include xs {
+        flex-direction: column;
+      }
+
+      button.delete {
+        position: absolute;
+        right: 1rem;
+        top: 0.5rem;
+        background: $color-red;
+        color: white;
+        border: 0;
+        padding: 0.1rem 0.6rem;
+        border-radius: 0.2rem;
+        cursor: pointer;
+
+        &:hover {
+          background: darken($color-red, 5%);
+        }
+      }
     }
   }
 }

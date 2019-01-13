@@ -11,15 +11,17 @@ import { Registration, User } from '@acme-widgets/models';
     <div class="container">
       <ul>
         <li *ngFor="let registration of registrations | async">
-          {{registration.id}}
-          {{registration.firstName}}
-          {{registration.lastName}}
-          {{registration.email}}
-          {{registration.activity}}
+          <strong>
+            {{registration.firstName}} {{registration.lastName}}
+          </strong>
+          <div class="{{registration.activityClass}}">
+            {{registration.activity}}
+          </div>
           <button
+            class="delete"
             *ngIf="userRegistration?.email === registration.email"
             (click)="deleteRegistration(registration.id)">
-            Delete
+            Cancel
           </button>
         </li>
       </ul>
