@@ -14,7 +14,7 @@ import {
 } from './registry.actions';
 import { Router } from '@angular/router';
 import { RegistrationsService } from '../services';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class RegistryEffects {
@@ -47,7 +47,11 @@ export class RegistryEffects {
         return this.registrationsService
           .delete(action.payload)
           .pipe(
-            map(() => new DeleteRegistrationSuccess(action.payload))
+            map(() => new DeleteRegistrationSuccess(action.payload)),
+            tap(() => {
+              localStorage.removeItem('registration');
+              this.router.navigate(['']);
+            })
           )
       },
 
