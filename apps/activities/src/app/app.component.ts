@@ -18,6 +18,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new fromRoot.GenerateRegistry)
+    this.store.dispatch(new fromRoot.CheckRegistered)
   }
 }

@@ -7,6 +7,7 @@ export enum RegistryActionTypes {
   RegistryLoadError = '[Registry] Registry Load Error',
 
   DeleteRegistration = '[Registry] Delete Registration',
+  DeleteRegistrationSuccess = '[Registry] Delete Registration Success',
   DeleteRegistrationError = '[Registry] Delete Registration Error',
 }
 
@@ -29,6 +30,11 @@ export class DeleteRegistration implements Action {
   constructor(public payload: number) {}
 }
 
+export class DeleteRegistrationSuccess implements Action {
+  readonly type = RegistryActionTypes.DeleteRegistrationSuccess;
+  constructor(public payload: number) {}
+}
+
 export class DeleteRegistrationError implements Action {
   readonly type = RegistryActionTypes.DeleteRegistrationError;
   constructor(public payload: any) {}
@@ -39,7 +45,8 @@ export type RegistryAction = LoadRegistry
   | RegistryLoaded
   | RegistryLoadError
   | DeleteRegistration
-  | DeleteRegistrationError;
+  | DeleteRegistrationError
+  | DeleteRegistrationSuccess;
 
 export const fromRegistryActions = {
   LoadRegistry,
@@ -47,5 +54,6 @@ export const fromRegistryActions = {
   RegistryLoadError,
 
   DeleteRegistration,
+  DeleteRegistrationSuccess,
   DeleteRegistrationError
 };

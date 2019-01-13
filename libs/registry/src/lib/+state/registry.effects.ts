@@ -9,9 +9,12 @@ import {
   RegistryLoadError,
   RegistryActionTypes,
   DeleteRegistration,
-  DeleteRegistrationError
+  DeleteRegistrationError,
+  DeleteRegistrationSuccess
 } from './registry.actions';
 import { Router } from '@angular/router';
+import { RegistrationsService } from '../services';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class RegistryEffects {
@@ -19,8 +22,11 @@ export class RegistryEffects {
     RegistryActionTypes.LoadRegistry,
     {
       run: (action: LoadRegistry, state: RegistryPartialState) => {
-        const registry = JSON.parse(localStorage.getItem('registry'))
-        return new RegistryLoaded(registry);
+        return this.registrationsService
+          .load()
+          .pipe(
+            map(registrations => new RegistryLoaded(registrations))
+          )
       },
 
       onError: (action: LoadRegistry, error) => {
@@ -38,14 +44,11 @@ export class RegistryEffects {
     RegistryActionTypes.DeleteRegistration,
     {
       run: (action: DeleteRegistration, state: RegistryPartialState) => {
-        let registry = JSON.parse(localStorage.getItem('registry'))
-        if (registry.map(r => r.id).indexOf(action.payload) !== -1) {
-          registry = registry.filter(r => r.id !== action.payload)
-          localStorage.setItem('registry', JSON.stringify(registry))
-          localStorage.removeItem('registration');
-          this.router.navigate(['']);
-          return new RegistryLoaded(registry);
-        }
+        return this.registrationsService
+          .delete(action.payload)
+          .pipe(
+            map(() => new DeleteRegistrationSuccess(action.payload))
+          )
       },
 
       onError: (action: DeleteRegistration, error) => {
@@ -57,6 +60,7 @@ export class RegistryEffects {
 
   constructor(
     private actions$: Actions,
+    private registrationsService: RegistrationsService,
     private router: Router,
     private dataPersistence: DataPersistence<RegistryPartialState>
   ) {}

@@ -16,6 +16,7 @@ export const REGISTRY_FEATURE_KEY = 'registry';
 export interface RegistryState {
   list: Registration[]; // list of Registry; analogous to a sql normalized table
   selectedId?: string | number; // which Registry record has been selected
+  loading: boolean;
   loaded: boolean; // has the Registry list been loaded
   error?: any; // last none error (if any)
 }
@@ -26,6 +27,7 @@ export interface RegistryPartialState {
 
 export const initialState: RegistryState = {
   list: [],
+  loading: false,
   loaded: false
 };
 
@@ -34,11 +36,36 @@ export function registryReducer(
   action: RegistryAction
 ): RegistryState {
   switch (action.type) {
+    case RegistryActionTypes.LoadRegistry: {
+      state = {
+        ...state,
+        loading: true
+      };
+      break;
+    }
+
     case RegistryActionTypes.RegistryLoaded: {
       state = {
         ...state,
         list: action.payload,
         loaded: true
+      };
+      break;
+    }
+
+    case RegistryActionTypes.DeleteRegistration: {
+      state = {
+        ...state,
+        loading: true
+      };
+      break;
+    }
+
+    case RegistryActionTypes.DeleteRegistrationSuccess: {
+      state = {
+        ...state,
+        list: state.list.filter(r => r.id !== action.payload),
+        loading: false
       };
       break;
     }

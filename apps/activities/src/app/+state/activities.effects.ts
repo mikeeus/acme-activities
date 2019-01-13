@@ -17,10 +17,11 @@ import {
 } from './activities.actions';
 import { Router } from '@angular/router';
 import { ActivitiesService } from '../services';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class ActivitiesEffects {
-  @Effect() generateRegistry = this.dataPersistence.fetch(
+  @Effect() checkRegistered = this.dataPersistence.fetch(
     ActivitiesActionTypes.CheckRegistered,
     {
       run: (action: CheckRegistered, state: ActivitiesPartialState) => {
@@ -63,16 +64,12 @@ export class ActivitiesEffects {
     ActivitiesActionTypes.Register,
     {
       run: (action: Register, state: ActivitiesPartialState) => {
-        const registry = JSON.parse(localStorage.getItem('registry'))
-        const registration = new Registration(action.payload);
-
-        if (registry.map(r => r.id).indexOf(action.payload.id) === -1) {
-          registry.push(registration);
-          localStorage.setItem('registry', JSON.stringify(registry));
-        }
-        localStorage.setItem('registration', JSON.stringify(registration));
-
-        return new Registered(registration);
+        return this.activitiesService.register(action.payload).pipe(
+          tap(registration =>
+            localStorage.setItem('registration', JSON.stringify(registration))
+          ),
+          map(registration => new Registered(registration))
+        )
       },
 
       onError: (action: Register, error) => {

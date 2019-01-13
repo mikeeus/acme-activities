@@ -29,6 +29,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes = [
   { path: '', component: fromContainers.HomeComponent },
@@ -49,6 +50,7 @@ const routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     RegistrationsModule,

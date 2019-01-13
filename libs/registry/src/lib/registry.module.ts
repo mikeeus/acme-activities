@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import * as fromContainers from './containers';
+import * as fromServices from './services';
+
+// FEATURE STORE
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import {
@@ -30,6 +33,9 @@ import { RegistryEffects } from './+state/registry.effects';
 
     EffectsModule.forFeature([RegistryEffects])
   ],
-  declarations: [...fromContainers.containers]
+  declarations: [...fromContainers.containers],
+  providers: [
+    ...fromServices.services
+  ]
 })
 export class RegistryModule {}
