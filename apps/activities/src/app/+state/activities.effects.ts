@@ -38,16 +38,7 @@ export class ActivitiesEffects {
     ActivitiesActionTypes.LoadActivities,
     {
       run: (action: LoadActivities, state: ActivitiesPartialState) => {
-        return new ActivitiesLoaded([
-          new Activity(1, 'Initial Coin Offering'),
-          new Activity(2, 'Fundraising'),
-          new Activity(3, 'Hostile Takeover'),
-          new Activity(4, "Gavin's Comeback Party"),
-          new Activity(5, 'Company Breakfast'),
-          new Activity(6, 'Company Retreat'),
-          new Activity(7, 'Quarterly All-Hands Meeting'),
-          new Activity(8, "Jim's Birthday"),
-        ]);
+        return new ActivitiesLoaded(defaultActivities);
       },
 
       onError: (action: LoadActivities, error) => {
@@ -96,7 +87,18 @@ export class ActivitiesEffects {
   ) {}
 }
 
-const defaultRegistry = [
+export const defaultActivities = [
+  new Activity(1, 'Initial Coin Offering'),
+  new Activity(2, 'Fundraising'),
+  new Activity(3, 'Hostile Takeover'),
+  new Activity(4, "Gavin's Comeback Party"),
+  new Activity(5, 'Company Breakfast'),
+  new Activity(6, 'Company Retreat'),
+  new Activity(7, 'Quarterly All-Hands Meeting'),
+  new Activity(8, "Jim's Birthday"),
+];
+
+export const defaultRegistry = [
   new Registration({
     id: 1,
     firstName: 'Richard',
