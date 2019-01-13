@@ -25,7 +25,8 @@
             "tsConfig": "apps/activities/tsconfig.app.json",
             "assets": [
               "apps/activities/src/favicon.ico",
-              "apps/activities/src/assets"
+              "apps/activities/src/assets",
+              "apps/activities/src/_redirects"
             ],
             "styles": ["apps/activities/src/styles.scss"],
             "scripts": [],
