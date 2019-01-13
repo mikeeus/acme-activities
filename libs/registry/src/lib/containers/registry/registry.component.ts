@@ -8,20 +8,22 @@ import { Registration, User } from '@acme-widgets/models';
 @Component({
   selector: 'acme-widgets-registry',
   template: `
-    <ul>
-      <li *ngFor="let registration of registrations | async">
-        {{registration.id}}
-        {{registration.firstName}}
-        {{registration.lastName}}
-        {{registration.email}}
-        {{registration.activity}}
-        <button
-          *ngIf="userRegistration?.email === registration.email"
-          (click)="deleteRegistration(registration.id)">
-          Delete
-        </button>
-      </li>
-    </ul>
+    <div class="container">
+      <ul>
+        <li *ngFor="let registration of registrations | async">
+          {{registration.id}}
+          {{registration.firstName}}
+          {{registration.lastName}}
+          {{registration.email}}
+          {{registration.activity}}
+          <button
+            *ngIf="userRegistration?.email === registration.email"
+            (click)="deleteRegistration(registration.id)">
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
   `,
   styleUrls: ['./registry.component.scss']
 })

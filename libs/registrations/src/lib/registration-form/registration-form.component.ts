@@ -3,12 +3,12 @@ import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/fo
 import { Activity } from '@acme-widgets/models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs';
-import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
+import { map, merge, combineLatest, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'acme-widgets-registration-form',
   template: `
-  <form [formGroup]="form">
+  <form [formGroup]="form" (keydown.enter)="$event.preventDefault(); nextStep()">
     <h2>Sign Up For ACME Activities!</h2>
   
     <div class="step" *ngIf="(step | async)?.name === 'name'">
@@ -19,6 +19,8 @@ import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
           formControlName="firstName"
           type="text"
           class="form-control"
+          autofocus
+          tabindex="0"
           required>
       </acme-widgets-form-control>
     
@@ -41,7 +43,9 @@ import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
           formControlName="email"
           type="text"
           class="form-control"
-          required>
+          required
+          autofocus
+          tabindex="0">
       </acme-widgets-form-control>
     </div>
   
@@ -49,7 +53,7 @@ import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
       <acme-widgets-form-control
         label="Acitivity"
         [control]="activity">
-        <select formControlName="activity">
+        <select formControlName="activity" autofocus tabindex="0">
           <option *ngFor="let option of activities" value="{{option.name}}">
             {{option.name}}
           </option>
@@ -63,7 +67,9 @@ import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
           formControlName="comments"
           type="text"
           class="form-control"
-          rows="10">
+          rows="10"
+          autofocus
+          tabindex="0">
         </textarea>
       </acme-widgets-form-control>
     </div>
@@ -79,7 +85,7 @@ import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
       <button
         type="button"
         *ngIf="(step | async)?.next !== 'done'"
-        [disabled]="!(stepValid | async)"
+        [disabled]="!allowNext"
         (click)="nextStep()"
         style="margin-left: auto;">
         Next
@@ -99,20 +105,21 @@ import { map, merge, withLatestFrom, switchMap } from 'rxjs/operators';
 export class RegistrationFormComponent implements OnInit {
   @Output() submit = new EventEmitter<any>();
   @Input() activities: Activity[];
+  form: FormGroup;
   step: BehaviorSubject<RegistrationStep>;
   stepValid: Observable<boolean>;
   steps;
-  form: FormGroup;
+  allowNext = false
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.form = this.fb.group({
-      firstName: ['Mikias', [Validators.required, Validators.minLength(2)]],
-      lastName: ['Abera', [Validators.required, Validators.minLength(2)]],
-      email: ['mikias@email.com', [Validators.required, Validators.email]],
-      activity: ['Initial Coin Offering', [Validators.required, Validators.minLength(2)]],
-      comments: ['Test'],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      activity: ['', [Validators.required, Validators.minLength(2)]],
+      comments: [''],
     });
 
     this.step = new BehaviorSubject({
@@ -149,10 +156,10 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     this.stepValid = this.form.valueChanges.pipe(
-      withLatestFrom(this.step),
+      combineLatest(this.step),
       map(([_formValue, step]) => this.validate(step.controls))
     )
-    this.stepValid.subscribe(val => console.log('stepValid: ', val))
+    this.stepValid.subscribe(valid => this.allowNext = valid)
   }
 
   get firstName() { return this.form.get('firstName'); }
@@ -166,14 +173,20 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   validate(controls: AbstractControl[]): boolean {
-    console.log(controls)
-    return controls.length === 0 ||
-      controls.map((c: AbstractControl) => c.valid)
-              .indexOf(false) === -1;
+    const valid = controls.length === 0 ||
+      controls.map(c => c.valid).indexOf(false) === -1;
+      console.log('valid: ', valid)
+      return valid;
   }
 
   nextStep() {
-    this.step.next(this.steps[this.step.value.next])
+    if (this.validate(this.step.value.controls)) {
+      if (this.step.value.next === 'done') {
+        this.submitForm()
+      } else {
+        this.step.next(this.steps[this.step.value.next])
+      }
+    }
   }
 
   prevStep() {

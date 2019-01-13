@@ -27,8 +27,8 @@ export class ActivitiesEffects {
       run: (action: CheckRegistered, state: ActivitiesPartialState) => {
         const registration = localStorage.getItem('registration')
 
-        if (localStorage.getItem('registration')) {
-          this.router.navigate(['registration'])
+        if (registration) {
+          this.router.navigate(['registrations'])
         }
       }
     }

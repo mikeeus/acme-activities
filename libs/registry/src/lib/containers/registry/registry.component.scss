@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 3rem;
+  box-sizing: border-box;
+
+  ul {
+    max-width: 50rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: 1rem;
+      line-height: 2rem;
+    }
+  }
+}
