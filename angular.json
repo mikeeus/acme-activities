@@ -28,7 +28,12 @@
               "apps/activities/src/assets"
             ],
             "styles": ["apps/activities/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "variables.scss"
+              ]
+            }
           },
           "configurations": {
             "production": {

@@ -1,0 +1,175 @@
+
+/**
+ * Media Query variables and mixins
+ *  Example:
+ *    p {
+ *       font-size: 16px;
+ *
+ *       @include xs {
+ *         font-size: 18px;
+ *       }
+ *
+ *       @include gt-xs {
+ *         font-size: 20px;
+ *       }
+ *     }
+ */
+
+// Media Queries
+//   xs  |   sm   |   md   |   lg   |   xl
+//      600px    960px   1280px   1920PX
+
+$xs: 599px;
+$sm_min: 600px; $sm_max: 959px;
+$md_min: 960px; $md_max: 1279px;
+$lg_min: 1280px; $lg_max: 1919px;
+$xl_min: 1920px; $xl_max: 5000px;
+
+// $lt-sm	'screen and (max-width: 599px)'
+// $lt-md	'screen and (max-width: 959px)'
+// $lt-lg	'screen and (max-width: 1279px)'
+// $lt-xl	'screen and (max-width: 1919px)'
+// $gt-xs	'screen and (min-width: 600px)'
+// $gt-sm	'screen and (min-width: 960px)'
+// $gt-md	'screen and (min-width: 1280px)'
+// $gt-lg	'screen and (min-width: 1920px)'
+
+@mixin xs {
+  @media (max-width: $xs) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: $sm_min) and (max-width: $sm_max) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $md_min) and (max-width: $md_max) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $lg_min) and (max-width: $lg_max) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $xl_min) and (max-width: $xl_max) {
+    @content;
+  }
+}
+
+// LESS THAN queries
+@mixin lt-sm {
+  @media (max-width: $sx_max) {
+    @content;
+  }
+}
+@mixin lt-md {
+  @media (max-width: $sm_max) {
+    @content;
+  }
+}
+@mixin lt-lg {
+  @media (max-width: $md_max) {
+    @content;
+  }
+}
+@mixin lt-xl {
+  @media (max-width: $lg_max) {
+    @content;
+  }
+}
+
+// GREATER THAN queries
+@mixin gt-xs {
+  @media (min-width: $sm_min) {
+    @content;
+  }
+}
+@mixin gt-sm {
+  @media (min-width: $md_min) {
+    @content;
+  }
+}
+@mixin gt-md {
+  @media (min-width: $lg_min) {
+    @content;
+  }
+}
+@mixin gt-lg {
+  @media (min-width: $xl_min) {
+    @content;
+  }
+}
+
+// Box Shadows
+@mixin box-shadow {
+  -webkit-box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.7);
+}
+
+// Images
+@mixin image-background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+// Animations
+@mixin gradient($angle, $clr1, $clr2, $clr3, $clr4) {
+	background: linear-gradient($angle, $clr1, $clr2, $clr3, $clr4);
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 30s ease infinite;
+	-moz-animation: Gradient 30s ease infinite;
+	animation: Gradient 30s ease infinite;
+}
+
+// Containers
+@mixin fill-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+// Fonts
+$fonts-headers: 'Quicksand', Roboto, Helvetica, sans-serif;
+$fonts-body: 'Quicksand', Roboto, Helvetica, sans-serif;
+
+// Sizes ---------------------------------------------
+// Header
+$header-height: 64px;
+$header-height-xs: 56px;
+$page-max-width: 1120px;
+
+// Z-INDEXES -----------------------------------------
+$z-content: 999;
+$z-mobile-toolbar: 9999;
+
+// COLORS --------------------------------------------
+$main-color: #03a9f4;
+
+// Greys
+$grey9: #212121;
+$grey8: #424242;
+$grey7: #616161;
+$grey6: #757575;
+$grey5: #9e9e9e;
+$grey4: #bdbdbd;
+$grey3: #e0e0e0;
+$grey2: #eeeeee;
+$grey1: #f5f5f5;
+$grey0: #fafafa;
+
+
+// Layouts
+// Buttons
+// Forms
+// Animations
