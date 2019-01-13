@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Activity } from '@acme-widgets/models';
 
 @Component({
   selector: 'acme-widgets-registration-form',
@@ -21,8 +22,8 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
   
     <acme-widgets-form-control label="Acitivity" [control]="activity">
       <select formControlName="activity">
-        <option *ngFor="let option of activities" value="{{option}}">
-          {{option}}
+        <option *ngFor="let option of activities" value="{{option.name}}">
+          {{option.name}}
         </option>
       </select>
     </acme-widgets-form-control>
@@ -44,7 +45,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class RegistrationFormComponent implements OnInit {
   @Output() submit = new EventEmitter<any>();
-  @Input() activities: string[];
+  @Input() activities: Activity[];
 
   form: FormGroup;
 

@@ -1,4 +1,5 @@
 import { ActivitiesAction, ActivitiesActionTypes } from './activities.actions';
+import { Activity } from '@acme-widgets/models';
 
 export const ACTIVITIES_FEATURE_KEY = 'activities';
 
@@ -9,9 +10,8 @@ export const ACTIVITIES_FEATURE_KEY = 'activities';
  *
  *  Note: replace if already defined in another module
  */
-
 export interface ActivitiesState {
-  list: string[]; // list of Activities; analogous to a sql normalized table
+  list: Activity[]; // list of Activities; analogous to a sql normalized table
   selectedId?: string | number; // which Activities record has been selected
   loaded: boolean; // has the Activities list been loaded
   error?: any; // last none error (if any)

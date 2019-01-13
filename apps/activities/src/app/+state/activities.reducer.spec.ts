@@ -1,17 +1,17 @@
 import { ActivitiesLoaded } from './activities.actions';
 import {
   ActivitiesState,
-  Entity,
   initialState,
   activitiesReducer
 } from './activities.reducer';
+import { Activity } from '@acme-widgets/models';
 
 describe('Activities Reducer', () => {
   const getActivitiesId = it => it['id'];
   let createActivities;
 
   beforeEach(() => {
-    createActivities = (id: string, name = ''): Entity => ({
+    createActivities = (id: number, name = ''): Activity => ({
       id,
       name: name || `name-${id}`
     });

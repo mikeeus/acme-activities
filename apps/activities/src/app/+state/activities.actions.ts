@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Registration } from '@acme-widgets/models';
+import { Registration, Activity } from '@acme-widgets/models';
 
 export enum ActivitiesActionTypes {
   LoadActivities = '[Activities] Load Activities',
@@ -10,7 +10,7 @@ export enum ActivitiesActionTypes {
   Registered = '[Activities] Registered',
   RegistrationError = '[Activities] Registration Error',
 
-  GenerateRegistry = '[Activities] Generate Registry'
+  CheckRegistered = '[Activities] Check Registered'
 }
 
 export class LoadActivities implements Action {
@@ -24,11 +24,11 @@ export class ActivitiesLoadError implements Action {
 
 export class ActivitiesLoaded implements Action {
   readonly type = ActivitiesActionTypes.ActivitiesLoaded;
-  constructor(public payload: string[]) {}
+  constructor(public payload: Activity[]) {}
 }
 
-export class GenerateRegistry implements Action {
-  readonly type = ActivitiesActionTypes.GenerateRegistry;
+export class CheckRegistered implements Action {
+  readonly type = ActivitiesActionTypes.CheckRegistered;
 }
 
 export class Register implements Action {
@@ -50,7 +50,7 @@ export type ActivitiesAction =
   | LoadActivities
   | ActivitiesLoaded
   | ActivitiesLoadError
-  | GenerateRegistry
+  | CheckRegistered
   | Register
   | Registered
   | RegistrationError;
@@ -59,7 +59,7 @@ export const fromActivitiesActions = {
   LoadActivities,
   ActivitiesLoaded,
   ActivitiesLoadError,
-  GenerateRegistry,
+  CheckRegistered,
   Register,
   Registered,
   RegistrationError

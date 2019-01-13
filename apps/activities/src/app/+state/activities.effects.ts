@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 
-import { Registration } from '@acme-widgets/models';
+import { Registration, Activity } from '@acme-widgets/models';
 
 import { ActivitiesPartialState } from './activities.reducer';
 import {
@@ -10,35 +10,23 @@ import {
   ActivitiesLoaded,
   ActivitiesLoadError,
   ActivitiesActionTypes,
-  GenerateRegistry,
+  CheckRegistered,
   Register,
   RegistrationError,
   Registered
 } from './activities.actions';
 import { Router } from '@angular/router';
+import { ActivitiesService } from '../services';
 
 @Injectable()
 export class ActivitiesEffects {
-  /**
-   * NOTE
-   * On app start we generate the registry and add it to localStorage to 
-   * simulate populating the backend db. We then check if the user has already 
-   * registered.
-   * 
-   * In a real app we would check the JWT token in localStorage for 
-   * validity by making a request to the backend. Here we just assume that a 
-   * user in the localStorage means a user has signed up.
-   */
   @Effect() generateRegistry = this.dataPersistence.fetch(
-    ActivitiesActionTypes.GenerateRegistry,
+    ActivitiesActionTypes.CheckRegistered,
     {
-      run: (action: GenerateRegistry, state: ActivitiesPartialState) => {
-        const registry = localStorage.getItem('registry')
+      run: (action: CheckRegistered, state: ActivitiesPartialState) => {
         const registration = localStorage.getItem('registration')
 
-        if (!registry) {
-          localStorage.setItem('registry', JSON.stringify(defaultRegistry));
-        } else if (registration) {
+        if (localStorage.getItem('registration')) {
           this.router.navigate(['registration'])
         }
       }
@@ -50,14 +38,14 @@ export class ActivitiesEffects {
     {
       run: (action: LoadActivities, state: ActivitiesPartialState) => {
         return new ActivitiesLoaded([
-          'Initial Coin Offering',
-          'Fundraising',
-          'Hostile Takeover',
-          "Gavin's Comeback Party",
-          'Company Breakfast',
-          'Company Retreat',
-          'Quarterly All-Hands Meeting',
-          "Jim's Birthday"
+          new Activity(1, 'Initial Coin Offering'),
+          new Activity(2, 'Fundraising'),
+          new Activity(3, 'Hostile Takeover'),
+          new Activity(4, "Gavin's Comeback Party"),
+          new Activity(5, 'Company Breakfast'),
+          new Activity(6, 'Company Retreat'),
+          new Activity(7, 'Quarterly All-Hands Meeting'),
+          new Activity(8, "Jim's Birthday"),
         ]);
       },
 
@@ -105,6 +93,7 @@ export class ActivitiesEffects {
 
   constructor(
     private actions$: Actions,
+    private activitiesService: ActivitiesService,
     private router: Router,
     private dataPersistence: DataPersistence<ActivitiesPartialState>
   ) {}

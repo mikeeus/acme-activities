@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as fromRoot from '../../+state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Registration } from '@acme-widgets/models';
+import { Registration, Activity } from '@acme-widgets/models';
 
 @Component({
   selector: 'acme-widgets-home',
@@ -15,7 +15,7 @@ import { Registration } from '@acme-widgets/models';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  activities: Observable<string[]>;
+  activities: Observable<Activity[]>;
 
   constructor(private store: Store<fromRoot.ActivitiesState>) { }
 
