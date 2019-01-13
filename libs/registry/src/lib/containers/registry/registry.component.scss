@@ -9,18 +9,20 @@
   flex-direction: column;
 
   .filter {
+    margin: 0 auto 3rem;
+
     strong {
       margin-right: 2rem;
       padding: 0.5rem;
     }
   }
+
   .activity {
     padding: 0 1rem;
     border-radius: 0.2rem;
     border: 0;
     color: white;
     font-weight: bold;
-    margin-left: auto;
     line-height: 3rem;
     font-size: 1rem;
     cursor: pointer;
@@ -32,36 +34,69 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    margin: auto;
 
     li {
       display: flex;
       flex-direction: column;
+      margin-bottom: 2rem;
+
+      @include xs {
+        .info {
+          flex-direction: column;
+
+          .activity {
+            margin: 1rem;
+          }
+        }
+
+        .comments {
+          text-align: center;
+        }
+      }
+      
+      @include gt-xs {
+        .info {
+          line-height: 3rem;
+
+          small {
+            margin-left: 1rem;
+          }
+          
+          .activity {
+            margin-left: auto;
+          }
+        }
+      }
 
       .info {
         display: flex;
         align-items: center;
         width: 100%;
         padding: 0.5rem;
-        line-height: 3rem;
         position: relative;
-  
-        @include xs {
-          flex-direction: column;
+        box-sizing: border-box;
+
+        strong, .activity {
+          white-space: nowrap;
         }
-  
+
         small {
-          margin-left: 1rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          max-width: 100%;
         }
   
         button.delete {
           position: absolute;
-          right: -1rem;
-          top: 0.5rem;
-          background: $color-red;
+          right: 0;
+          top: 0;
           color: white;
+          background: $color-red;
           border: 0;
-          padding: 0.3rem 0.4rem;
-          border-radius: 0.2rem;
+          border-radius: 50%;
+          font-size: 1.3rem;
           cursor: pointer;
   
           &:hover {
@@ -72,6 +107,7 @@
 
       small.comments{
         padding: 0 0.5rem;
+        font-style: italic;
       }
     }
   }

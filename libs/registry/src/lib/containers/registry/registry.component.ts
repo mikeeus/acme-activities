@@ -26,7 +26,7 @@ import { filter, map } from 'rxjs/operators';
             <strong>
               {{registration.firstName}} {{registration.lastName}}
             </strong>
-            <small>{{registration.email}}</small>
+            <small title="{{registration.email}}">{{registration.email}}</small>
 
             <div
               class="activity"
@@ -39,7 +39,7 @@ import { filter, map } from 'rxjs/operators';
               class="delete"
               *ngIf="userRegistration?.email === registration.email"
               (click)="deleteRegistration(registration.id)">
-              X
+              ✖
             </button>
           </div>
 
