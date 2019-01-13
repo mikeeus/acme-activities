@@ -76,15 +76,17 @@ import { map, merge, combineLatest, switchMap } from 'rxjs/operators';
 
     <div class="controls">
       <button
-        type="button"
         *ngIf="(step | async)?.prev"
+        type="button"
+        class="back"
         (click)="prevStep()">
         Back
       </button>
 
       <button
-        type="button"
         *ngIf="(step | async)?.next !== 'done'"
+        type="button"
+        class="next"
         [disabled]="!allowNext"
         (click)="nextStep()"
         style="margin-left: auto;">
@@ -93,6 +95,7 @@ import { map, merge, combineLatest, switchMap } from 'rxjs/operators';
 
       <button
         *ngIf="(step | async)?.next === 'done'"
+        class="submit"
         [disabled]="form.invalid"
         (click)="submitForm(); $event.preventDefault()">
         Submit
@@ -173,10 +176,8 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   validate(controls: AbstractControl[]): boolean {
-    const valid = controls.length === 0 ||
+    return controls.length === 0 ||
       controls.map(c => c.valid).indexOf(false) === -1;
-      console.log('valid: ', valid)
-      return valid;
   }
 
   nextStep() {
