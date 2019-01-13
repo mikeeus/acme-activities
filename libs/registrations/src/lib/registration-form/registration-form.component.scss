@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 form {
   max-width: 30rem;
   padding: 2rem;
@@ -6,8 +8,36 @@ form {
     text-align: center;
   }
 
+  .step {
+    height: 17rem;
+  }
+
   .controls {
     display: flex;
-    justify-content: end;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      height: 4rem;
+      width: 4rem;
+      border-radius: 0.2rem;
+      border: 0;
+      font-size: 1rem;
+      color: $grey9;
+      @include box-shadow;
+      background: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 200ms ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      &:disabled {
+        background: $grey6;
+        color: white;
+      }
+    }
   }
 }
