@@ -1,11 +1,13 @@
-import { getHeader, fillFirstName, getFormControlErrors, fillLastName, fillEmail, selectAcitivity, fillComments, nextStep, submitForm } from '../support/app.po';
+import { getHeader, fillFirstName, getFormControlErrors, fillLastName, fillEmail, selectAcitivity, fillComments, nextStep, submitForm, getRegistry, getFirstRegistration, getRegistrations } from '../support/app.po';
 
 describe('Hello Nx', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
+  it('should display welcome message and a form', () => {
     getHeader().contains('Sign Up For ACME Activities!');
+  })
 
+  it('should validate form and display a list of registrations once registered', () => {
     fillFirstName('m')
     getFormControlErrors('First Name').contains('First Name must be at least 2 characters')
     fillFirstName('{backspace}')
@@ -29,6 +31,8 @@ describe('Hello Nx', () => {
     fillComments()
     submitForm()
 
-    getHeader().contains('Registrations')
-  });
+    getRegistry().find('h1').contains('Registrations')
+    getFirstRegistration().find('strong').contains('Mikias Abera')
+    getRegistrations().should('have.length.greaterThan', 6)
+  })
 });
