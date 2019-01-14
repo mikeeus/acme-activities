@@ -12,9 +12,9 @@ I used [Nrwl Nx]((http://nrwl.io/nx)) to generate applications, libs and ngrx st
 
 The main [activities app](apps/activities/src/app/app.module.ts) lives at `apps/activities/`. It holds the `HomeComponent` which is for the `/` route. It also holds state for the registration form and handlers the `register` action.
 
- The [Registry][libs/registry/src/lib/registry.module.ts] module is lazy loaded and and secured with a route guard to make sure only users who have registered are able to access it.
+ The [Registry](libs/registry/src/lib/registry.module.ts) module is lazy loaded and and secured with a route guard to make sure only users who have registered are able to access it.
 
- The [Models lib][libs/models/src/index.ts] is responsible for holding the models that are used in the application. I choose to use classes instead of interfaces because it enables me to add instance methods and static properties with little effort.
+ The [Models lib](libs/models/src/index.ts) is responsible for holding the models that are used in the application. I choose to use classes instead of interfaces because it enables me to add instance methods and static properties with little effort.
 
 apps/
   activities/
